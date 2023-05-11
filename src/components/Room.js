@@ -22,7 +22,7 @@ const Room = ({ room }) => {
         </b>
 
         <div style={{ float: "right" }}>
-          <Link to={`/booking/${room._id}`}>
+          <Link to={`/booking/${room._id} `}>
             <button className="btn btn-primary m-2">Book Now </button>
           </Link>
           <button className="btn btn-primary" onClick={handleShow}>

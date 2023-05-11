@@ -10,14 +10,14 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<HomeScreen />} />
-          <Route path="/booking/:roomid" element={<BookinigScreen />} />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/register" element={<RegistrationScreen />} />
-        </Routes>
-      </BrowserRouter>
+      {/* <BrowserRouter> */}
+      <Routes>
+        <Route path="/home" element={<HomeScreen />} />
+        <Route path="/booking/:roomid" element={<BookinigScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/register" element={<RegistrationScreen />} />
+      </Routes>
+      {/* </BrowserRouter> */}
     </div>
   );
 }

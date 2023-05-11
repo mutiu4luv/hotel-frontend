@@ -49,3 +49,21 @@ h1{
   height: 400px;
   border-radius: 5px !important;
 }
+.dropdown-toggle{
+  border:"0px solid black !important"
+}
+input, select, .ant-picker {
+ margin-top: 10px;
+ border: 2px solid black  !important;
+ width: 100% !important;
+  box-shadow: none !important;
+  border-radius: 3px !important;
+  height: 35px !important;
+}
+h2{
+  font-size: 30px !important;
+  padding: 10px;
+  font-weight: bold !important;
+  text-align: center;
+}
+
