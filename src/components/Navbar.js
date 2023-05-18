@@ -27,7 +27,7 @@ function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg ">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="/home">
           Mutiu Hotel
         </a>
         <button
@@ -63,8 +63,8 @@ function Navbar() {
                   </a>
 
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="/bookings">
-                      Bookings
+                    <a class="dropdown-item" href="/profile">
+                      Profile
                     </a>
                     <Button class="dropdown-item" onClick={logout}>
                       Logout

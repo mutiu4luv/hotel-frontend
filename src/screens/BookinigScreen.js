@@ -61,6 +61,11 @@ const BookinigScreen = () => {
     //     }
   };
 
+  useEffect(() => {
+    // Set value to local storage
+    localStorage.setItem("bookingId", "my booking");
+  }, []);
+
   async function bookroom() {
     const bookingDetails = {
       room,
@@ -69,7 +74,6 @@ const BookinigScreen = () => {
       todate,
       totalamount,
       totaldays,
-
       // transaction,
       // status,
     };
@@ -94,6 +98,10 @@ const BookinigScreen = () => {
     }
   }
   useEffect(() => {
+    if (!localStorage.getItem("userid")) {
+      window.location.reload = "/login";
+    }
+
     const fetchRoom = async () => {
       const { data } = await axios.get(
         "http://localhost:5000/api/rooms/getroombyid/" + roomid
