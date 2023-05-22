@@ -97,11 +97,8 @@ const BookinigScreen = () => {
       Swal.fire("Oooops", "something went wrong", "Error");
     }
   }
-  useEffect(() => {
-    if (!localStorage.getItem("userid")) {
-      window.location.reload = "/login";
-    }
 
+  useEffect(() => {
     const fetchRoom = async () => {
       const { data } = await axios.get(
         "http://localhost:5000/api/rooms/getroombyid/" + roomid
