@@ -3,8 +3,12 @@ import { Tabs } from "antd";
 import axios from "axios";
 import Loader from "../components/Loader";
 import { getRoom } from "../Data/DataApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminAddRoomScreen from "./AdminAddRoomScreen";
+import { Grid } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Swal from "sweetalert2";
 
 const { TabPane } = Tabs;
 const navigate = useNavigate;
@@ -70,6 +74,26 @@ export function Bookings() {
     fetchRoom();
   }, []);
 
+  const deleteHandler = (booking, e) => {
+    e.preventDefault();
+    setLoading(true);
+    const { data } = axios
+      .delete(`http://localhost:5000/api/bookings/deletes/${booking._id}`)
+
+      .then((res) => {
+        setLoading(false);
+
+        console.log("Deleted!!!", res);
+        Swal.fire(" BookingSuccessfully removed");
+        navigate("/admin");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        // Swal.fire("Oooops", "something went wrong", "Error");
+      });
+  };
+
   return (
     <div className="row">
       <div className="col-md-12">
@@ -84,6 +108,7 @@ export function Bookings() {
               <th>From</th>
               <th>To</th>
               <th>Status</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -97,6 +122,19 @@ export function Bookings() {
                     <td>{booking.fromdate}</td>
                     <td>{booking.todate}</td>
                     <td>{booking.status}</td>
+                    <td>
+                      <button
+                        style={{
+                          color: "white",
+                          backgroundColor: "transparent",
+                        }}
+                        onClick={(e) => deleteHandler(booking, e)}
+                      >
+                        <Grid item xs={8}>
+                          <DeleteIcon />
+                        </Grid>
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -113,6 +151,7 @@ export function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const { roomid } = useParams();
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -128,6 +167,25 @@ export function Rooms() {
     fetchRoom();
   }, []);
 
+  const deleteHandler = (room, e) => {
+    e.preventDefault();
+    setLoading(true);
+    const { data } = axios
+      .delete(`http://localhost:5000/api/rooms/deletes/${room._id}`)
+
+      .then((res) => {
+        setLoading(false);
+
+        console.log("Deleted!!!", res);
+        alert("Item has been removed");
+        navigate("/admin");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed to remove");
+      });
+  };
+
   return (
     <div className="row">
       <div className="col-md-12">
@@ -142,6 +200,7 @@ export function Rooms() {
               <th>Rent Per Day</th>
               <th>Max Count</th>
               <th>Phone Number</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -155,6 +214,19 @@ export function Rooms() {
                     <td>{room.rentperday}</td>
                     <td>{room.maxcount}</td>
                     <td>{room.phonenumber}</td>
+                    <td>
+                      <button
+                        style={{
+                          color: "white",
+                          backgroundColor: "transparent",
+                        }}
+                        onClick={(e) => deleteHandler(room, e)}
+                      >
+                        <Grid item xs={8}>
+                          <DeleteIcon />
+                        </Grid>
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -171,6 +243,7 @@ export function Users() {
   const [users, setUsers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -187,6 +260,24 @@ export function Users() {
 
     fetchRoom();
   }, []);
+
+  const deleteHandler = (user, e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .delete(`http://localhost:5000/api/users/deletes/${user?._id}`)
+
+      .then((res) => {
+        setLoading(false);
+        console.log("Deleted!!!", res);
+        alert("Item has been removed");
+        navigate("/admin");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed to remove");
+      });
+  };
 
   return (
     <div className="row">
@@ -218,12 +309,21 @@ export function Users() {
 
                     <td>
                       <button
-                        style={{ color: "white", backgroundColor: "white" }}
+                        style={{
+                          color: "white",
+                          backgroundColor: "transparent",
+                        }}
+                        onClick={(e) => deleteHandler(user, e)}
                       >
-                        <i
+                        {/* <i
                           className="bi bi-trash"
                           style={{ color: "white", backgroundColor: "white" }}
-                        ></i>
+                        ></i> */}
+
+                        <Grid item xs={8}>
+                          <DeleteIcon />
+                          {/* <DeleteForeverIcon /> */}
+                        </Grid>
                       </button>
                     </td>
                     <td></td>

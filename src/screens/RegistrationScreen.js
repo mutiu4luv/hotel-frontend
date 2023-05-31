@@ -23,6 +23,7 @@ function RegistrationScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
+  const navigate = useNavigate();
 
   async function register() {
     if (password === confirmPassword) {
@@ -44,6 +45,7 @@ function RegistrationScreen() {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
+        navigate("/home");
       } catch (error) {
         console.log(error);
         setLoading(false);

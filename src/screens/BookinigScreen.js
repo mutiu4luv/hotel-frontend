@@ -21,6 +21,8 @@ const BookinigScreen = () => {
   const [fromdate, setFromDate] = useState(new Date());
   const [todate, setToDate] = useState(new Date());
   const [totaldays, setTotaldays] = useState(1);
+  const [status, setStatus] = useState("booked");
+  const [transaction, setTransaction] = useState("booked");
   // const [totalamount, setTotalAmount] = useState(0);
   const [duplicaterooms, setDuplicaterooms] = useState([]);
 
@@ -74,8 +76,8 @@ const BookinigScreen = () => {
       todate,
       totalamount,
       totaldays,
-      // transaction,
-      // status,
+      transaction,
+      status,
     };
     try {
       setLoading(true);
@@ -84,6 +86,8 @@ const BookinigScreen = () => {
 
         bookingDetails
       );
+      console.log(result);
+
       setLoading(false);
       Swal.fire(
         "congratulations",
@@ -121,14 +125,16 @@ const BookinigScreen = () => {
 
     const bookingDetails = {
       room,
+      roomid,
       userid: localStorage.getItem("userId"),
       fromdate,
       todate,
       totalamount,
       totaldays,
       token,
-      // transaction,
-      // status,
+      transaction,
+      status,
+      token,
     };
     try {
       setLoading(true);
@@ -143,6 +149,7 @@ const BookinigScreen = () => {
         "your Room is Booked Successfully",
         "success"
       );
+      // navigate("/home");
     } catch (error) {
       setLoading(false);
       Swal.fire("Oooops", "something went wrong", "Error");
@@ -209,13 +216,13 @@ const BookinigScreen = () => {
                       </button>
                     </StripeCheckout>
 
-                    <button
+                    {/* <button
                       className="btn btn-primary"
                       style={{ float: "right" }}
                       onClick={bookroom}
                     >
                       Pay Now normal
-                    </button>
+                    </button> */}
                   </div>
                 )}
               </div>

@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BsEnvelope, BsFillTelephoneFill } from "react-icons/bs";
+import {} from "react-icons/bs";
 function Navbar() {
   const user = localStorage.getItem("name");
   const navigate = useNavigate();
@@ -24,12 +25,25 @@ function Navbar() {
     navigate("/login");
   };
 
+  const handleCallButtonClick = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg ">
         <a className="navbar-brand" href="/home">
           Mutiu Hotel
         </a>
+        <button type="button" className="btn" onClick={handleCallButtonClick}>
+          <i className="fa fa-phone"></i> 07031911306
+        </button>
+
+        {/* <span style={{ color: "white" }}>
+          {" "}
+          <BsFillTelephoneFill /> 07031911306 <BsEnvelope />{" "}
+          mchibueze312@gmal.com
+        </span> */}
         <button
           className="navbar-toggler"
           type="button"

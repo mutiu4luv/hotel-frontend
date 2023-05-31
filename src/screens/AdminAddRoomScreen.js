@@ -19,7 +19,7 @@ const AdminAddRoomScreen = () => {
   const navigate = useNavigate();
 
   async function addroom() {
-    const newRoom = {
+    const newroom = {
       name,
       rentperday,
       maxcount,
@@ -32,11 +32,9 @@ const AdminAddRoomScreen = () => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post(
-        "http://localhost:5000/api/rooms/addrooms",
-        newRoom
-      );
-      console.log("result", data);
+      const data = await (
+        await axios.post("http://localhost:5000/api/rooms/addrooms", newroom)
+      ).console.log("result", data);
       setLoading(false);
       Swal.fire(
         "congratulations",

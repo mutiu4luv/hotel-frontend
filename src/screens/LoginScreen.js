@@ -11,7 +11,7 @@ import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../Data/DataApi";
 
 function LoginScreen() {
@@ -64,7 +64,7 @@ function LoginScreen() {
           //   navigate("/home");
           {
             localStorage.getItem("isAdmin") === "true"
-              ? navigate("/admin/true")
+              ? navigate("/admin")
               : navigate("/home");
           }
         } else {
@@ -139,6 +139,10 @@ function LoginScreen() {
               >
                 Login
               </Button>
+              <Link to="/register" className="text-align-center">
+                {" "}
+                If Not a Member Register Here
+              </Link>
             </MDBCardBody>
           </MDBCard>
         </MDBContainer>

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import React, { useEffect, useState } from "react";
 import Room from "../components/Room";
 import Loader from "../components/Loader";
@@ -8,11 +8,13 @@ import { DatePicker, Space } from "antd";
 import moment from "moment";
 import { getRoom } from "../Data/DataApi";
 import { Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 // import "antd/distantd.css";
 
 const { RangePicker } = DatePicker;
 
-function HomeScreen() {
+const HomeScreen = () => {
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [filterRooms, setFilterRooms] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +22,7 @@ function HomeScreen() {
   const [searchkey, setSearchkey] = useState("");
   const [type, setType] = useState("all");
   const [searchtwo, setSearchtwo] = useState([]);
+
   useEffect(() => {
     const fetchHotels = async () => {
       const { data } = await axios.get(getRoom);
@@ -75,11 +78,27 @@ function HomeScreen() {
   };
 
   const filterByType = (data) => {
-    const results = searchtwo.filter(
-      (room) => room.type.toLowerCase() == data.toLowerCase()
-    );
-    console.log(results);
-    setRooms(results);
+    // const results = searchtwo.filter(
+    //   (room) => room.type.toLowerCase() == data.toLowerCase()
+    // );
+    // console.log(results);
+    // setRooms(results);
+    if (allrooms) {
+      const results = searchtwo.filter(
+        (room) => room.type.toLowerCase() === data.toLowerCase()
+      );
+      console.log(results);
+      setRooms(results);
+    } else {
+      // navigate("/homer");
+      const results = searchtwo.filter(data.room);
+      console.log(results);
+      setRooms(results);
+    }
+  };
+
+  const allrooms = (data) => {
+    setSearchtwo(data.room);
   };
 
   return (
@@ -123,9 +142,11 @@ function HomeScreen() {
               setType(event.target.value);
             }}
           >
-            <option value="all">All</option>
-            <option value="dulux">Delux</option>
-            <option value="non-dulux">Non-Dulux</option>
+            <option onChange={allrooms} value="all">
+              All
+            </option>
+            <option value="delux">Delux</option>
+            <option value="non-delux">Non-Delux</option>
           </select>
         </div>
       </div>
@@ -161,6 +182,6 @@ function HomeScreen() {
       </div>
     </div>
   );
-}
+};
 
 export default HomeScreen;
